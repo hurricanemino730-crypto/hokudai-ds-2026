@@ -217,6 +217,71 @@
     font-size:14px;
   }
 
+  .submit-form{
+    display:grid;
+    gap:16px;
+    max-width:560px;
+  }
+  .submit-form label{
+    display:block;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--green-dark);
+    margin-bottom:6px;
+  }
+  .submit-form .hint{
+    font-weight:400;
+    color:var(--muted);
+    font-size:12.5px;
+  }
+  .submit-form input[type=text],
+  .submit-form input[type=email],
+  .submit-form input[type=url],
+  .submit-form textarea{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    font-size:14px;
+    font-family:inherit;
+    color:var(--text);
+    background:#fff;
+  }
+  .submit-form textarea{resize:vertical;min-height:70px;}
+  .submit-form input[type=file]{font-size:13.5px;}
+  .submit-form .field-or{
+    text-align:center;
+    font-size:12.5px;
+    color:var(--muted);
+    letter-spacing:.08em;
+  }
+  .submit-form .honeypot{
+    position:absolute;
+    left:-9999px;
+    width:1px;height:1px;
+    overflow:hidden;
+  }
+  .submit-form button[type=submit]{
+    justify-self:start;
+    background:var(--green);
+    color:#fff;
+    border:none;
+    font-size:14px;
+    font-weight:700;
+    padding:11px 28px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .submit-form button[type=submit]:hover{background:var(--green-dark);}
+  .submit-form button[type=submit]:disabled{background:#9db3a8;cursor:not-allowed;}
+  .submit-status{
+    font-size:13.5px;
+    min-height:1.2em;
+  }
+  .submit-status.success{color:var(--green-dark);font-weight:700;}
+  .submit-status.error{color:#b3261e;font-weight:700;}
+
   footer{
     background:var(--green-dark);
     color:rgba(255,255,255,0.75);
@@ -439,7 +504,46 @@
 
   </section>
 
+  <section id="submit-assignment">
+    <h2>最終課題の提出</h2>
+    <div class="card">
+      <form class="submit-form" id="submit-form">
+        <div>
+          <label for="f-name">氏名<span class="hint"> (必須)</span></label>
+          <input type="text" id="f-name" name="name" required autocomplete="name">
+        </div>
+        <div>
+          <label for="f-email">メールアドレス<span class="hint"> (必須・同じアドレスで再提出すると上書きされます)</span></label>
+          <input type="email" id="f-email" name="email" required autocomplete="email">
+        </div>
+        <div>
+          <label for="f-url">成果物のURL<span class="hint"> (自分のWebサイト・YouTube動画など)</span></label>
+          <input type="url" id="f-url" name="submission_url" placeholder="https://...">
+        </div>
+        <div class="field-or">または</div>
+        <div>
+          <label for="f-file">ファイルをアップロード<span class="hint"> (50MBまで)</span></label>
+          <input type="file" id="f-file" name="file">
+        </div>
+        <div>
+          <label for="f-comment">コメント<span class="hint"> (任意)</span></label>
+          <textarea id="f-comment" name="comment"></textarea>
+        </div>
+        <div class="honeypot" aria-hidden="true">
+          <label for="f-website">Website</label>
+          <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit">提出する</button>
+        <div class="submit-status" id="submit-status"></div>
+      </form>
+    </div>
+  </section>
+
 </main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/submit.js"></script>
 
 <footer>
   <div class="wrap">
